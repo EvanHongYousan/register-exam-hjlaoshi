@@ -1,0 +1,23 @@
+{
+  "name": "register-exam-hjlaoshi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvanHongYousan/register-exam-hjlaoshi.git"
+  },
+  "author": "Evan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvanHongYousan/register-exam-hjlaoshi/issues"
+  },
+  "homepage": "https://github.com/EvanHongYousan/register-exam-hjlaoshi#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "gulp":"^3.9.1"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "register-exam-hjlaoshi",
+  "homepage": "https://github.com/EvanHongYousan/register-exam-hjlaoshi",
+  "authors": [
+    "Evan Yan <1370204201@qq.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "angular-animate": "^1.5.0"
+  }
+}
