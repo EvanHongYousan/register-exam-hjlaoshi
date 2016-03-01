@@ -101,7 +101,7 @@ img{
 .answer li:last-of-type {
   border-bottom: solid 1px #dfdfdf;
 }
-/* 防止内容中存在span和a标签，使用子集选择符 */
+
 .answer li span > a, .answer li > span{
   display:inline-block;
 }
@@ -192,7 +192,7 @@ img{
   color:#4CAE68;
   font-size:14px;
 }
-/*手风琴。*/
+/*??????*/
 .accordion{
   line-height: 60px;
   vertical-align:middle;
@@ -214,7 +214,7 @@ img{
 .accordion > h4 > p{
   margin:0 auto;
   width:95%;
-  box-sizing:border-box; /*IE盒模型*/
+  box-sizing:border-box; /*IE?????*/
   -webkit-box-sizing:border-box;
   cursor:pointer;
   padding-left:30px;

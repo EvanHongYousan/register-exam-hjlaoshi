@@ -68,7 +68,7 @@ app.controller('navbarController',function($scope, questionService, $location,$r
 app.run(function($http,questionService){
     $http({
         method:'GET',
-        url:'/data/test_data.json'
+        url:'./data/test_data.json'
     }).then(function(resp){
         questionService.data = resp.data;
     });
