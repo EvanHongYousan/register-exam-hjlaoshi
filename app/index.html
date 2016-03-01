@@ -1,16 +1,37 @@
 <!DOCTYPE html>
-<html ng-app="animateApp">
+<html ng-app="app">
 <head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <title></title>
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="sass/main.css"/>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body>
+<div ng-controller="navbarController">
+    <div class="navbar">
+        <span class="preQue" ng-click="preQue()" ng-if="activeIndex!='1'">上一题</span>
+
+        <div class="navBtn" ng-click="toggleSerialCard()">
+            <span class="curQueNum">{{activeIndex}}</span><span>/</span><span class="queLen">{{questions.data.length}}</span><img src="./images/arrow.png" class="{{hover}}">
+        </div>
+        <span class="nextQue" ng-click="nextQue()">下一题</span>
+
+        <div style="clear:both;"></div>
+    </div>
+    <div class="serialCard {{hover}}">
+        <!--<p>2014年北京数学中考试卷</p>-->
+
+        <div>
+            <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span>{{$index + 1}}</span></a>
+        </div>
+    </div>
+    <div class="mask {{hover}}" ng-click="clearHover()"></div>
+</div>
 <div class="page {{ pageClass }}" ng-view></div>
 </body>
 </html>

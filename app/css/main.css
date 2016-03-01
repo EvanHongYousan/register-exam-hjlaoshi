@@ -2,9 +2,6 @@ html, body {
     margin: 0;
     padding: 0;
 }
-
-/* make our pages be full width and full height */
-/* positioned absolutely so that the pages can overlap each other as they enter and leave */
 .page {
     bottom: 0;
     padding-top: 200px;
@@ -21,9 +18,6 @@ html, body {
 .page a {
     margin-top: 50px;
 }
-
-/* PAGES (specific colors for each page)
-============================================================================= */
 .page-home {
     background: #00D0BC;
     color: #00907c;
@@ -38,12 +32,6 @@ html, body {
     background: #ffa6bb;
     color: #9e0000;
 }
-
-/* ANIMATIONS
-============================================================================= */
-
-/* leaving animations ----------------------------------------- */
-/* rotate and fall */
 @keyframes rotateFall {
     0% {
         transform: rotateZ(0deg);
@@ -62,32 +50,23 @@ html, body {
         transform: translateY(100%) rotateZ(17deg);
     }
 }
-
-/* slide in from the bottom */
 @keyframes slideOutLeft {
     to {
         transform: translateX(-100%);
     }
 }
-
-/* rotate out newspaper */
 @keyframes rotateOutNewspaper {
     to {
         transform: translateZ(-3000px) rotateZ(360deg);
         opacity: 0;
     }
 }
-
-/* entering animations --------------------------------------- */
-/* scale up */
 @keyframes scaleUp {
     from {
         opacity: 0.3;
         -webkit-transform: scale(0.8);
     }
 }
-
-/* slide in from the right */
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -96,8 +75,6 @@ html, body {
         transform: translateX(0);
     }
 }
-
-/* slide in from the bottom */
 @keyframes slideInUp {
     from {
         transform: translateY(100%);
@@ -106,12 +83,10 @@ html, body {
         transform: translateY(0);
     }
 }
-
 .ng-enter {
     animation: slideInRight 0.5s both ease-in;
     z-index: 8888;
 }
-
 .ng-leave {
     animation: slideOutLeft 0.5s both ease-in;
     z-index: 9999;

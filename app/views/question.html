@@ -1,0 +1,24 @@
+<section id="page">
+
+    <div class="mask"></div>
+    <section id="content">
+        <div class="question">
+            <div>
+                <!--<span id="topic_header">{{activeIndex}}</span>-->
+                <p>{{question.question_text}}</p>
+            </div>
+        </div>
+        <!---
+        <section class="line"></section>
+        --->
+        <div class="answer">
+            <ul>
+                <li class="right" ng-repeat="(key,option) in question.options" ng-click="toggle()">
+                    <div class="contentInner">
+                        <span><a>{{key}}</a> {{option}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</section>
