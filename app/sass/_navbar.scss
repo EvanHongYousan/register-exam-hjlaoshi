@@ -39,20 +39,26 @@ body {
   .preQue {
     float: left;
     margin-left: 2.5%;
+    &:active{
+      background-color: #c6c6c6;;
+    }
   }
 
   .nextQue {
     float: right;
     margin-right: 2.5%;
+    &:active{
+      background-color: #C6C6C6;;
+    }
   }
 
   div.navBtn img {
     width: 10px;
     height: 10px;
 
-    -webkit-transition: -webkit-transform 0.5s; /* Safari ºÍ Chrome */
-    -moz-transition: -moz-transform 0.5s; /* Firefox 4 */
-    -o-transition: -o-transform 0.5s; /* Opera */
+    -webkit-transition: -webkit-transform 0.5s;
+    -moz-transition: -moz-transform 0.5s;
+    -o-transition: -o-transform 0.5s;
     transition: transform 0.5s;
 
     margin-left: 5px;
