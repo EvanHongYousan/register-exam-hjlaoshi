@@ -2,7 +2,7 @@
  * Created by yantianyu on 2016/3/1.
  */
 
-var app = angular.module('app', ['ngRoute', 'ngAnimate']);
+var app = angular.module('app', ['ngRoute', 'ngAnimate','ngTouch']);
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/home', {
@@ -20,12 +20,15 @@ app.config(function ($routeProvider) {
         .when('/question/:questionId',{
             templateUrl:'./views/question.html',
             controller:'questionController'
-        })
+        });
 
         //.otherwise('/home');
 
 });
 app.service('questionService',function(){
+    this.data = [];
+});
+app.service('userSelections',function(){
     this.data = [];
 });
 app.controller('mainController', function ($scope) {
@@ -37,15 +40,23 @@ app.controller('aboutController', function ($scope) {
 app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
-app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService){
+app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService, userSelections){
     $rootScope.activeIndex = $routeParams.questionId;
     $scope.question = questionService.data[$routeParams.questionId-1];
-    $scope.toggle = function(){};
+    $scope.selectedIndex = userSelections.data[$routeParams.questionId];
+    $scope.toggle = function(index){
+        userSelections.data[$routeParams.questionId] = index;
+        $scope.selectedIndex = index;
+    };
+    $scope.swipe = function(e){
+        console.log(e);
+    };
 });
 
-app.controller('navbarController',function($scope, questionService, $location,$rootScope){
+app.controller('navbarController',function($scope, questionService, $location,$rootScope, userSelections){
     $scope.hover = '';
     $scope.questions = questionService;
+    $scope.userSelections = userSelections.data;
     $scope.toggleSerialCard = function(){
         if($scope.hover == ''){
             $scope.hover = 'hover';

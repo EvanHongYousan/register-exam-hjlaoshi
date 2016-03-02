@@ -85,12 +85,12 @@ body {
     float: left;
     margin-left: 2.5%; }
     .navbar .preQue:active {
-      background-color: #c6c6c6; }
+      background-color: #d8d8d8; }
   .navbar .nextQue {
     float: right;
     margin-right: 2.5%; }
     .navbar .nextQue:active {
-      background-color: #C6C6C6; }
+      background-color: #d8d8d8; }
   .navbar div.navBtn img {
     width: 10px;
     height: 10px;
@@ -323,28 +323,24 @@ img {
   background: url(../images/gray.png) no-repeat;
   background-size: 32px 32px; }
 
-.selectWrong {
-  background: url(../images/red.png) no-repeat !important;
+.answer li .contentInner > span > a.selectWrong {
+  background: url(../images/red.png) no-repeat;
   color: #fff;
-  background-size: 32px 32px !important; }
+  background-size: 32px 32px; }
 
-.selectRight {
-  background: url(../images/green.png) no-repeat !important;
+.answer li .contentInner > span > a.selectRight {
+  background: url(../images/green.png) no-repeat;
   color: #fff;
-  background-size: 32px 32px !important; }
+  background-size: 32px 32px; }
 
-.active {
-  /*
-  background:#33b5e5!important;
-  box-shadow:inset 1px 1px 1px #2da0cb!important;
-  */
-  background: url(../images/blue.png) no-repeat !important;
+.answer li:active {
+  background-color: #d8d8d8; }
+
+.answer li .contentInner > span > a.active {
+  background: url(../images/blue.png) no-repeat;
+  background-size: 32px 32px;
   vertical-align: middle;
-  color: #fff;
-  /*
-  _background:#4cae68!important;
-  _box-shadow:inset 1px 1px 1px #419459!important;
-  */ }
+  color: #fff; }
 
 .questionType {
   background: #eee2a0;
@@ -470,84 +466,28 @@ img {
   top: 50px;
   width: 100%; }
 
-@keyframes rotateFall {
-  0% {
-    transform: rotateZ(0deg); }
-  20% {
-    transform: rotateZ(10deg);
-    animation-timing-function: ease-out; }
-  40% {
-    transform: rotateZ(17deg); }
-  60% {
-    transform: rotateZ(16deg); }
-  100% {
-    transform: translateY(100%) rotateZ(17deg); } }
-@-webkit-keyframes slideOutLeft {
-  to {
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    -o-transform: translateX(-100%);
-    transform: translateX(-100%); } }
-@-moz-keyframes slideOutLeft {
-  to {
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    -o-transform: translateX(-100%);
-    transform: translateX(-100%); } }
-@-o-keyframes slideOutLeft {
-  to {
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    -o-transform: translateX(-100%);
-    transform: translateX(-100%); } }
-@keyframes slideOutLeft {
-  to {
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    -o-transform: translateX(-100%);
-    transform: translateX(-100%); } }
-@keyframes rotateOutNewspaper {
-  to {
-    transform: translateZ(-3000px) rotateZ(360deg);
-    opacity: 0; } }
-@-webkit-keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    -webkit-transform: scale(0.8); } }
-@-moz-keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    -webkit-transform: scale(0.8); } }
-@-o-keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    -webkit-transform: scale(0.8); } }
-@keyframes scaleUp {
-  from {
-    opacity: 0.3;
-    -webkit-transform: scale(0.8); } }
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%); }
-  to {
-    transform: translateX(0); } }
-@keyframes slideInUp {
-  from {
-    transform: translateY(100%); }
-  to {
-    transform: translateY(0); } }
-.ng-enter {
-  -webkit-animation: scaleUp 0.3s both ease-in;
-  -moz-animation: scaleUp 0.3s both ease-in;
-  -o-animation: scaleUp 0.3s both ease-in;
-  animation: scaleUp 0.3s both ease-in;
-  z-index: 8888; }
+.slidedown {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100%; }
 
-.ng-leave {
-  -webkit-animation: slideOutLeft 0.3s both ease-in;
-  -moz-animation: slideOutLeft 0.3s both ease-in;
-  -o-animation: slideOutLeft 0.3s both ease-in;
-  animation: slideOutLeft 0.3s both ease-in;
-  z-index: 9999; }
+.slidedown.ng-enter,
+.slidedown.ng-leave {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease; }
+
+.slidedown.ng-enter {
+  top: -100%; }
+
+.slidedown.ng-enter-active {
+  top: 50px; }
+
+.slidedown.ng-leave {
+  top: 0; }
+
+.slidedown.ng-leave-active {
+  top: 100%; }
 
 /*# sourceMappingURL=main.css.map */

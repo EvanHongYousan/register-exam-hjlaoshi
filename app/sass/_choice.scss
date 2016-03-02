@@ -126,31 +126,24 @@ img{
   background:url(../images/gray.png) no-repeat;
   background-size:32px 32px;
 }
-.selectWrong{
-  background:url(../images/red.png) no-repeat !important;
+.answer  li .contentInner > span > a.selectWrong{
+  background:url(../images/red.png) no-repeat ;
   color:#fff;
-  background-size:32px 32px !important;
+  background-size:32px 32px ;
 }
-.selectRight{
-  background:url(../images/green.png) no-repeat !important;
+.answer  li .contentInner > span > a.selectRight{
+  background:url(../images/green.png) no-repeat ;
   color:#fff;
-  background-size:32px 32px !important;
+  background-size:32px 32px ;
 }
-.answer li:hover{
-
+.answer li:active{
+  background-color: #d8d8d8;
 }
-.active{
-  /*
-  background:#33b5e5!important;
-  box-shadow:inset 1px 1px 1px #2da0cb!important;
-  */
-  background:url(../images/blue.png) no-repeat!important;
+.answer  li .contentInner > span > a.active{
+  background:url(../images/blue.png) no-repeat;
+  background-size:32px 32px;
   vertical-align:middle;
   color:#fff;
-  /*
-  _background:#4cae68!important;
-  _box-shadow:inset 1px 1px 1px #419459!important;
-  */
 }
 .questionType{
   background:#eee2a0;

@@ -4,7 +4,6 @@
     <section id="content">
         <div class="question">
             <div>
-                <!--<span id="topic_header">{{activeIndex}}</span>-->
                 <p>{{question.question_text}}</p>
             </div>
         </div>
@@ -13,9 +12,9 @@
         --->
         <div class="answer">
             <ul>
-                <li class="right" ng-repeat="(key,option) in question.options" ng-click="toggle()">
+                <li class="right" ng-repeat="(key,option) in question.options" ng-click="toggle($index)">
                     <div class="contentInner">
-                        <span><a>{{key}}</a> {{option}}</span>
+                        <span><a ng-class="{active:$index===selectedIndex}">{{key}}</a> {{option}}</span>
                     </div>
                 </li>
             </ul>
