@@ -57,6 +57,7 @@ app.controller('navbarController',function($scope, questionService, $location,$r
     $scope.hover = '';
     $scope.questions = questionService;
     $scope.userSelections = userSelections.data;
+    $rootScope.slideMode = 'slide-left';
     $scope.toggleSerialCard = function(){
         if($scope.hover == ''){
             $scope.hover = 'hover';
@@ -69,9 +70,11 @@ app.controller('navbarController',function($scope, questionService, $location,$r
         $scope.hover = '';
     };
     $scope.preQue = function(){
+        $rootScope.slideMode = 'slide-right';
         $location.path('question/'+($rootScope.activeIndex-1));
     };
     $scope.nextQue = function(){
+        $rootScope.slideMode = 'slide-left';
         $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
     };
 });
