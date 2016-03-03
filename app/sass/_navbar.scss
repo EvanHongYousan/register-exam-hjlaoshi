@@ -12,6 +12,11 @@ body {
   /*height:35px;*/
   position: fixed !important;
   top: 0;
+  left:50%;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
   z-index: 12000;
 
   span.curQueNum {
@@ -79,16 +84,17 @@ body {
   position: fixed;
   /*top:-150px;*/
   top: 54px;
+  left:50%;
 
   -webkit-transition: -webkit-transform 0.5s ease;
   -moz-transition: -moz-transform 0.5s ease;
   -o-transition: -o-transform 0.5s ease;
   transition: transform 0.5s ease;
 
-  -webkit-transform: translate3d(0, -100%, 0);
-  -moz-transform: translate3d(0, -100%, 0);
-  -o-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
+  -webkit-transform: translate3d(-50%, -100%, 0);
+  -moz-transform: translate3d(-50%, -100%, 0);
+  -o-transform: translate3d(-50%, -100%, 0);
+  transform: translate3d(-50%, -100%, 0);
 
   padding: 20px 0;
   width: 100%;
@@ -150,13 +156,12 @@ body {
     color: #fff;
     background-color: #f05836;
   }
-}
-
-.serialCard.hover {
-  -webkit-transform: translate3d(0, -10px, 0);
-  -moz-transform: translate3d(0, -10px, 0);
-  -o-transform: translate3d(0, -10px, 0);
-  transform: translate3d(0, -10px, 0);
+  &.hover{
+    -webkit-transform: translate3d(-50%, -10px, 0);
+    -moz-transform: translate3d(-50%, -10px, 0);
+    -o-transform: translate3d(-50%, -10px, 0);
+    transform: translate3d(-50%, -10px, 0);
+  }
 }
 
 .mask {

@@ -64,6 +64,11 @@ body {
   /*height:35px;*/
   position: fixed !important;
   top: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
   z-index: 12000; }
   .navbar span.curQueNum {
     font-size: 20px; }
@@ -112,14 +117,15 @@ body {
   position: fixed;
   /*top:-150px;*/
   top: 54px;
+  left: 50%;
   -webkit-transition: -webkit-transform 0.5s ease;
   -moz-transition: -moz-transform 0.5s ease;
   -o-transition: -o-transform 0.5s ease;
   transition: transform 0.5s ease;
-  -webkit-transform: translate3d(0, -100%, 0);
-  -moz-transform: translate3d(0, -100%, 0);
-  -o-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
+  -webkit-transform: translate3d(-50%, -100%, 0);
+  -moz-transform: translate3d(-50%, -100%, 0);
+  -o-transform: translate3d(-50%, -100%, 0);
+  transform: translate3d(-50%, -100%, 0);
   padding: 20px 0;
   width: 100%;
   z-index: 10000;
@@ -160,12 +166,11 @@ body {
   .serialCard span.selectwrong {
     color: #fff;
     background-color: #f05836; }
-
-.serialCard.hover {
-  -webkit-transform: translate3d(0, -10px, 0);
-  -moz-transform: translate3d(0, -10px, 0);
-  -o-transform: translate3d(0, -10px, 0);
-  transform: translate3d(0, -10px, 0); }
+  .serialCard.hover {
+    -webkit-transform: translate3d(-50%, -10px, 0);
+    -moz-transform: translate3d(-50%, -10px, 0);
+    -o-transform: translate3d(-50%, -10px, 0);
+    transform: translate3d(-50%, -10px, 0); }
 
 .mask {
   position: fixed;
@@ -475,43 +480,71 @@ img {
 
 .slide-left.ng-enter,
 .slide-left.ng-leave {
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease; }
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
 
 .slide-left.ng-enter {
-  left: 100%; }
+  -webkit-transform: translate(100%, 0);
+  -moz-transform: translate(100%, 0);
+  -o-transform: translate(100%, 0);
+  transform: translate(100%, 0); }
 
 .slide-left.ng-enter-active {
-  left: 0; }
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0); }
 
 .slide-left.ng-leave {
-  left: 0; }
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0); }
 
 .slide-left.ng-leave-active {
-  left: -100%; }
+  -webkit-transform: translate(-100%, 0);
+  -moz-transform: translate(-100%, 0);
+  -o-transform: translate(-100%, 0);
+  transform: translate(-100%, 0); }
 
 .slide-right {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 50px;
   width: 100%;
   height: 100%; }
 
 .slide-right.ng-enter,
 .slide-right.ng-leave {
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease; }
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
 
 .slide-right.ng-enter {
-  right: 100%; }
+  -webkit-transform: translate(-100%, 0);
+  -moz-transform: translate(-100%, 0);
+  -o-transform: translate(-100%, 0);
+  transform: translate(-100%, 0); }
 
 .slide-right.ng-enter-active {
-  right: 0; }
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0); }
 
 .slide-right.ng-leave {
-  right: 0; }
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0); }
 
 .slide-right.ng-leave-active {
-  right: -100%; }
+  -webkit-transform: translate(100%, 0);
+  -moz-transform: translate(100%, 0);
+  -o-transform: translate(100%, 0);
+  transform: translate(100%, 0); }
 
 /*# sourceMappingURL=main.css.map */

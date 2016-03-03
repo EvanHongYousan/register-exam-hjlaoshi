@@ -40,7 +40,7 @@ app.controller('aboutController', function ($scope) {
 app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
-app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService, userSelections){
+app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location){
     $rootScope.activeIndex = $routeParams.questionId;
     $scope.question = questionService.data[$routeParams.questionId-1];
     $scope.selectedIndex = userSelections.data[$routeParams.questionId];
@@ -48,8 +48,16 @@ app.controller('questionController',function($scope, $http, $routeParams, $rootS
         userSelections.data[$routeParams.questionId] = index;
         $scope.selectedIndex = index;
     };
-    $scope.swipe = function(e){
-        console.log(e);
+    $scope.swipeLeft = function(e){
+        $rootScope.slideMode = 'slide-left';
+        $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
+    };
+    $scope.swipeRight = function(e){
+        if($rootScope.activeIndex == 1){
+            return;
+        }
+        $rootScope.slideMode = 'slide-right';
+        $location.path('question/'+(parseInt($rootScope.activeIndex)-1));
     };
 });
 

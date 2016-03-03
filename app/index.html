@@ -20,7 +20,7 @@
         <div class="navBtn" ng-click="toggleSerialCard()">
             <span class="curQueNum">{{activeIndex}}</span><span>/</span><span class="queLen">{{questions.data.length}}</span><img src="./images/arrow.png" class="{{hover}}">
         </div>
-        <span class="nextQue" ng-click="nextQue()">下一题</span>
+        <span class="nextQue" ng-click="nextQue()" ng-if="activeIndex != questions.data.length">下一题</span>
 
         <div style="clear:both;"></div>
     </div>
@@ -31,6 +31,6 @@
     </div>
     <div class="mask {{hover}}" ng-click="clearHover()"></div>
 </div>
-<div class="page {{slideMode}}" ng-view ng-touchmove="swipe($event)"></div>
+<div class="page {{slideMode}}" ng-view ng-swipe-left="swipeLeft($event)" ng-swipe-right="swipeRight($event)"></div>
 </body>
 </html>
