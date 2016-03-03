@@ -1,6 +1,4 @@
 <section id="page">
-
-    <div class="mask"></div>
     <section id="content">
         <div class="question">
             <div>
@@ -20,4 +18,5 @@
             </ul>
         </div>
     </section>
+    <span class="submitBtn" ng-if="activeIndex == questions.data.length" ng-click="submit()">提交</span>
 </section>

@@ -20,6 +20,10 @@ app.config(function ($routeProvider) {
         .when('/question/:questionId',{
             templateUrl:'./views/question.html',
             controller:'questionController'
+        })
+        .when('/result',{
+            templateUrl:'./views/result.html',
+            controller:'resultController'
         });
 
         //.otherwise('/home');
@@ -43,12 +47,18 @@ app.controller('contactController', function ($scope) {
 app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location){
     $rootScope.activeIndex = $routeParams.questionId;
     $scope.question = questionService.data[$routeParams.questionId-1];
+    $scope.questions = questionService;
     $scope.selectedIndex = userSelections.data[$routeParams.questionId];
     $scope.toggle = function(index){
-        userSelections.data[$routeParams.questionId] = index;
+        userSelections.data[$routeParams.questionId-1] = index;
         $scope.selectedIndex = index;
+        console.log(userSelections.data);
+        console.log(questionService.data);
     };
     $scope.swipeLeft = function(e){
+        if($rootScope.activeIndex == questionService.data.length){
+            return;
+        }
         $rootScope.slideMode = 'slide-left';
         $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
     };
@@ -59,6 +69,18 @@ app.controller('questionController',function($scope, $http, $routeParams, $rootS
         $rootScope.slideMode = 'slide-right';
         $location.path('question/'+(parseInt($rootScope.activeIndex)-1));
     };
+    $scope.submit = function(){
+        $location.path('result').replace();
+    };
+});
+
+app.controller('resultController', function($scope, $rootScope ,questionService, userSelections){
+    var answerArray = ['A',"B","C","D","E","F","G"];
+    $rootScope.isResultPage = true;
+    $scope.questions = questionService.data;
+    $scope.userSelections = userSelections.data;
+    console.log($scope.questions);
+    console.log($scope.userSelections);
 });
 
 app.controller('navbarController',function($scope, questionService, $location,$rootScope, userSelections){
@@ -87,11 +109,12 @@ app.controller('navbarController',function($scope, questionService, $location,$r
     };
 });
 
-app.run(function($http,questionService){
+app.run(function($http,questionService,$rootScope){
     $http({
         method:'GET',
-        url:'./data/test_data.json'
+        url:'./data/que_data.json'
     }).then(function(resp){
         questionService.data = resp.data;
     });
+    $rootScope.isResultPage = false;
 });

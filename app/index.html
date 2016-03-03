@@ -13,7 +13,7 @@
     <script src="js/main.js"></script>
 </head>
 <body>
-<div ng-controller="navbarController">
+<div ng-controller="navbarController" ng-if="isResultPage!=true">
     <div class="navbar">
         <span class="preQue" ng-click="preQue()" ng-if="activeIndex!='1'">上一题</span>
 
