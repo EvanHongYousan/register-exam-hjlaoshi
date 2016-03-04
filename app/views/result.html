@@ -1,9 +1,11 @@
 <section class="resultPage">
     <h1>{{testScores}}<small>分</small></h1>
-    <p class="p1">恭喜你，笔试合格！</p>
-    <p class="p2">快上线答疑吧</p>
+    <p class="p1" ng-if="isQualified">恭喜你，笔试合格！</p>
+    <p class="p1" ng-if="!isQualified">笔试不合格！</p>
+    <p class="p2" ng-if="isQualified">快上线答疑吧</p>
     <div class="circleContainer">
         <span ng-repeat="item in questions" ng-class="{selectright:answerCount[$index],selectwrong:!answerCount[$index]}">{{$index+1}}</span>
     </div>
-    <span class="okBtn">好的</span>
+    <span class="okBtn" ng-if="isQualified">好的</span>
+    <span class="okBtn" ng-if="!isQualified" ng-click="retest()">重做一次</span>
 </section>

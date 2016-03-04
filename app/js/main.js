@@ -24,9 +24,9 @@ app.config(function ($routeProvider) {
         .when('/result',{
             templateUrl:'./views/result.html',
             controller:'resultController'
-        });
+        })
 
-        //.otherwise('/home');
+        .otherwise('/question/1');
 
 });
 app.service('questionService',function(){
@@ -35,7 +35,8 @@ app.service('questionService',function(){
 app.service('userSelections',function(){
     this.data = [];
 });
-app.controller('mainController', function ($scope) {
+app.controller('mainController', function ($scope, $rootScope) {
+    $rootScope.isResultPage = true;
     $scope.pageClass = 'page-home';
 });
 app.controller('aboutController', function ($scope) {
@@ -78,14 +79,13 @@ app.controller('questionController',function($scope, $http, $routeParams, $rootS
     };
 });
 
-app.controller('resultController', function($scope, $rootScope ,questionService, userSelections){
+app.controller('resultController', function($scope, $rootScope ,questionService, userSelections, $location){
     var answerArray = ['A',"B","C","D","E","F","G"];
     var answerCount = [],i = 0,rightAnswerCount = 0;
     $rootScope.isResultPage = true;
     $scope.questions = questionService.data;
     $scope.userSelections = userSelections.data;
-    console.log($scope.questions);
-    console.log($scope.userSelections);
+    $scope.isQualified = true;
     for( i = 0;i<$scope.questions.length;i++){
         if(answerArray[$scope.userSelections[i]] == $scope.questions[i]["right_answer"]){
             answerCount[i] = true;
@@ -96,6 +96,15 @@ app.controller('resultController', function($scope, $rootScope ,questionService,
     }
     $scope.testScores = parseInt(100 * rightAnswerCount / $scope.questions.length);
     $scope.answerCount = answerCount;
+    if($scope.testScores<60){
+        $scope.isQualified = false;
+    }
+    $scope.retest = function(){
+        userSelections.data = [];
+        $location.path('question/1');
+    };
+    console.log($scope.questions);
+    console.log($scope.userSelections);
     console.log(answerCount);
 });
 

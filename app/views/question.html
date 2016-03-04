@@ -2,7 +2,7 @@
     <section id="content">
         <div class="question">
             <div>
-                <p>{{question.question_text}}</p>
+                <p ng-repeat="text in question.question_text">{{text}}</p>
             </div>
         </div>
         <!---
