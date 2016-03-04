@@ -516,6 +516,12 @@ img {
     height: 28px;
     line-height: 28px;
     text-align: center; }
+  .resultPage .circleContainer span.selectright {
+    color: #fff;
+    background-color: #2ac99a; }
+  .resultPage .circleContainer span.selectwrong {
+    color: #fff;
+    background-color: #f05836; }
 .resultPage span.okBtn {
   border: 1px solid #2ac99a;
   background: #2ac99a;

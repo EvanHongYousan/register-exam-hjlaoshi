@@ -46,14 +46,18 @@ app.controller('contactController', function ($scope) {
 });
 app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location){
     $rootScope.activeIndex = $routeParams.questionId;
+    $rootScope.isResultPage = false;
     $scope.question = questionService.data[$routeParams.questionId-1];
     $scope.questions = questionService;
-    $scope.selectedIndex = userSelections.data[$routeParams.questionId];
+    $scope.selectedIndex = userSelections.data[$routeParams.questionId-1];
     $scope.toggle = function(index){
         userSelections.data[$routeParams.questionId-1] = index;
         $scope.selectedIndex = index;
-        console.log(userSelections.data);
-        console.log(questionService.data);
+
+        if($rootScope.activeIndex < questionService.data.length){
+            $rootScope.slideMode = 'slide-left';
+            $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
+        }
     };
     $scope.swipeLeft = function(e){
         if($rootScope.activeIndex == questionService.data.length){
@@ -76,11 +80,23 @@ app.controller('questionController',function($scope, $http, $routeParams, $rootS
 
 app.controller('resultController', function($scope, $rootScope ,questionService, userSelections){
     var answerArray = ['A',"B","C","D","E","F","G"];
+    var answerCount = [],i = 0,rightAnswerCount = 0;
     $rootScope.isResultPage = true;
     $scope.questions = questionService.data;
     $scope.userSelections = userSelections.data;
     console.log($scope.questions);
     console.log($scope.userSelections);
+    for( i = 0;i<$scope.questions.length;i++){
+        if(answerArray[$scope.userSelections[i]] == $scope.questions[i]["right_answer"]){
+            answerCount[i] = true;
+            rightAnswerCount++;
+        }else{
+            answerCount[i] = false;
+        }
+    }
+    $scope.testScores = parseInt(100 * rightAnswerCount / $scope.questions.length);
+    $scope.answerCount = answerCount;
+    console.log(answerCount);
 });
 
 app.controller('navbarController',function($scope, questionService, $location,$rootScope, userSelections){

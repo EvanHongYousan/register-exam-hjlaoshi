@@ -26,7 +26,7 @@
     </div>
     <div class="serialCard {{hover}}">
         <div>
-            <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span ng-class="{active:($index+1) == activeIndex,finished:(userSelections[$index+1] != undefined && ($index+1) != activeIndex)}">{{$index + 1}}</span></a>
+            <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span ng-class="{active:($index+1) == activeIndex,finished:(userSelections[$index] != undefined && ($index+1) != activeIndex)}">{{$index + 1}}</span></a>
         </div>
     </div>
     <div class="mask {{hover}}" ng-click="clearHover()"></div>

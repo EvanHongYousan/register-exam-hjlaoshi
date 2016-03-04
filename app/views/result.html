@@ -1,9 +1,9 @@
 <section class="resultPage">
-    <h1>90<small>分</small></h1>
+    <h1>{{testScores}}<small>分</small></h1>
     <p class="p1">恭喜你，笔试合格！</p>
     <p class="p2">快上线答疑吧</p>
     <div class="circleContainer">
-        <span ng-repeat="item in questions">{{$index+1}}</span>
+        <span ng-repeat="item in questions" ng-class="{selectright:answerCount[$index],selectwrong:!answerCount[$index]}">{{$index+1}}</span>
     </div>
     <span class="okBtn">好的</span>
 </section>
