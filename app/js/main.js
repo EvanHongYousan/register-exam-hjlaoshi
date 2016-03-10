@@ -145,7 +145,7 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
     };
 });
 
-app.controller('submitController', function ($scope, questionService, userSelections, $location, $http) {
+app.controller('submitController', function ($scope, questionService, userSelections, $location, $http, resultCollection) {
 
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': true,
@@ -202,15 +202,13 @@ app.controller('submitController', function ($scope, questionService, userSelect
 
         $http({
             method: 'JSONP',
-            url: domainName + '/app/spread/activity?buss_id=written&u=' + user_id + '&s=78&callback=JSON_CALLBACK'
+            url: domainName + '/app/spread/activity?buss_id=written&u=' + user_id + '&s='+resultCollection.getTestScores()+'&callback=JSON_CALLBACK'
         }).then(function (data) {
             console.log(data.data);
             if (data.status == 200) {
                 $location.path('result').replace();
             }
         });
-
-        //$location.path('result').replace();
     };
 });
 
@@ -221,27 +219,14 @@ app.controller('resultController', function ($scope, $rootScope, questionService
         'alert_ok_btn_text': '',
         'alert_cancel_btn_text': ''
     });
-    var answerArray = ['A', "B", "C", "D", "E", "F", "G"];
-    var answerCount = [], i = 0, rightAnswerCount = 0;
     $rootScope.isResultPage = true;
     $scope.questions = questionService.data;
     $scope.userSelections = userSelections.data;
-    $scope.isQualified = true;
-    for (i = 0; i < $scope.questions.length; i++) {
-        if (answerArray[$scope.userSelections[i]] == $scope.questions[i]["right_answer"]) {
-            answerCount[i] = true;
-            rightAnswerCount++;
-        } else {
-            answerCount[i] = false;
-        }
-    }
-    $scope.testScores = parseInt(100 * rightAnswerCount / $scope.questions.length);
-    $scope.answerCount = answerCount;
-    if ($scope.testScores < 80) {
-        $scope.isQualified = false;
-    }
+    $scope.isQualified = resultCollection.getQualified();
+    $scope.testScores = resultCollection.getTestScores();
+    $scope.answerCount = resultCollection.getAnswerCount();
     $scope.retest = function () {
-        userSelections.data = [];
+        resultCollection.reset();
         $location.path('home');
     };
 });
