@@ -39,6 +39,57 @@ app.service('questionService', function () {
 app.service('userSelections', function () {
     this.data = [];
 });
+app.factory('resultCollection', function (questionService, userSelections) {
+    var answerArray = ['A', "B", "C", "D", "E", "F", "G"];
+    var answerCount = [], i = 0, rightAnswerCount = 0;
+    var isQualified = null, testScores = 0;
+
+    function calculate() {
+        for (i = 0; i < questionService.data.length; i++) {
+            if (answerArray[userSelections.data[i]] == questionService.data[i]["right_answer"]) {
+                answerCount[i] = true;
+                rightAnswerCount++;
+            } else {
+                answerCount[i] = false;
+            }
+        }
+        testScores = parseInt(100 * rightAnswerCount / questionService.data.length);
+
+        isQualified = !(testScores < 80);
+    }
+
+    function reset() {
+        userSelections.data = [];
+    }
+
+    function getQualified() {
+        if (isQualified == null) {
+            calculate();
+        }
+        return isQualified;
+    }
+
+    function getTestScores() {
+        if (testScores == 0) {
+            calculate();
+        }
+        return testScores;
+    }
+
+    function getAnswerCount() {
+        if (answerCount == []) {
+            calculate();
+        }
+        return answerCount;
+    }
+
+    return {
+        reset: reset,
+        getQualified: getQualified,
+        getTestScores: getTestScores,
+        getAnswerCount: getAnswerCount
+    }
+});
 app.controller('mainController', function ($scope, $rootScope, $location) {
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': true,
@@ -94,7 +145,8 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
     };
 });
 
-app.controller('submitController', function ($scope, questionService, userSelections, $location) {
+app.controller('submitController', function ($scope, questionService, userSelections, $location, $http) {
+
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': true,
         'alert_content_text': 'ÍË³ö²âÊÔÂð£¿',
@@ -115,11 +167,54 @@ app.controller('submitController', function ($scope, questionService, userSelect
     }
     $scope.isFinished = isFinished;
     $scope.submit = function () {
-        $location.path('result').replace();
+
+        var user_id = null, domainName = 'http://guanli.hjlaoshi.com';
+
+        function getReqPrm(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            } else {
+                return null;
+            }
+        }
+
+        try {
+            user_id = getReqPrm('parameter') ? JSON.parse(decodeURIComponent(getReqPrm('parameter'))).user_id : null;
+        } catch (e) {
+            console.log(e);
+        }
+        if (user_id === null) {
+            user_id = '15800031138@xmpp.hjlaoshi.com';
+        } else {
+            user_id = user_id.split('@')[0];
+        }
+
+        if (/test/.test(location.href)) {
+            domainName = 'http://test.hjlaoshi.com';
+        }
+        if (/233/.test) {
+            domainName = 'http://192.168.0.231';
+        }
+
+        console.log('domainName:' + domainName);
+
+        $http({
+            method: 'JSONP',
+            url: domainName + '/app/spread/activity?buss_id=written&u=' + user_id + '&s=78&callback=JSON_CALLBACK'
+        }).then(function (data) {
+            console.log(data.data);
+            if (data.status == 200) {
+                $location.path('result').replace();
+            }
+        });
+
+        //$location.path('result').replace();
     };
 });
 
-app.controller('resultController', function ($scope, $rootScope, questionService, userSelections, $location) {
+app.controller('resultController', function ($scope, $rootScope, questionService, userSelections, $location, resultCollection) {
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': false,
         'alert_content_text': '',
