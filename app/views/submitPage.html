@@ -1,0 +1,12 @@
+<section class="submitPage">
+    <div class="circleContainer">
+        <p ng-if="isFinished">回答完成，交卷吧:)</p>
+
+        <p ng-if="!isFinished">题目没有答完，确定交卷吗？</p>
+        <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span
+                ng-class="{finished:userSelections[$index] != undefined}">{{$index + 1}}</span></a>
+    </div>
+
+    <span class="submitBtn" ng-click="submit()">交卷</span>
+    <a href="#/question/1"><p>继续答题</p></a>
+</section>

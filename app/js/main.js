@@ -2,7 +2,7 @@
  * Created by yantianyu on 2016/3/1.
  */
 
-var app = angular.module('app', ['ngRoute', 'ngAnimate','ngTouch']);
+var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngTouch']);
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/home', {
@@ -17,27 +17,39 @@ app.config(function ($routeProvider) {
             templateUrl: './views/page-contact.html',
             controller: 'contactController'
         })
-        .when('/question/:questionId',{
-            templateUrl:'./views/question.html',
-            controller:'questionController'
+        .when('/question/:questionId', {
+            templateUrl: './views/question.html',
+            controller: 'questionController'
         })
-        .when('/result',{
-            templateUrl:'./views/result.html',
-            controller:'resultController'
+        .when('/result', {
+            templateUrl: './views/result.html',
+            controller: 'resultController'
+        })
+        .when('/submit', {
+            templateUrl: './views/submitPage.html',
+            controller: 'submitController'
         })
 
-        .otherwise('/question/1');
+        .otherwise('/home');
 
 });
-app.service('questionService',function(){
+app.service('questionService', function () {
     this.data = [];
 });
-app.service('userSelections',function(){
+app.service('userSelections', function () {
     this.data = [];
 });
-app.controller('mainController', function ($scope, $rootScope) {
+app.controller('mainController', function ($scope, $rootScope, $location) {
+    JSNativeBridge.send('js_msg_confirm_alert', {
+        'is_active_confirm_alert': true,
+        'alert_content_text': 'ÍË³ö²âÊÔÂð£¿',
+        'alert_ok_btn_text': 'ÍË³ö',
+        'alert_cancel_btn_text': '¼ÌÐø×÷´ð'
+    });
     $rootScope.isResultPage = true;
-    $scope.pageClass = 'page-home';
+    $scope.beginTest = function () {
+        $location.path('question/1');
+    };
 });
 app.controller('aboutController', function ($scope) {
     $scope.pageClass = 'page-about';
@@ -45,101 +57,138 @@ app.controller('aboutController', function ($scope) {
 app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
-app.controller('questionController',function($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location){
+app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location) {
+    JSNativeBridge.send('js_msg_confirm_alert', {
+        'is_active_confirm_alert': true,
+        'alert_content_text': 'ÍË³ö²âÊÔÂð£¿',
+        'alert_ok_btn_text': 'ÍË³ö',
+        'alert_cancel_btn_text': '¼ÌÐø×÷´ð'
+    });
     $rootScope.activeIndex = $routeParams.questionId;
     $rootScope.isResultPage = false;
-    $scope.question = questionService.data[$routeParams.questionId-1];
+    $scope.question = questionService.data[$routeParams.questionId - 1];
     $scope.questions = questionService;
-    $scope.selectedIndex = userSelections.data[$routeParams.questionId-1];
-    $scope.toggle = function(index){
-        userSelections.data[$routeParams.questionId-1] = index;
+    $scope.selectedIndex = userSelections.data[$routeParams.questionId - 1];
+    $scope.toggle = function (index) {
+        userSelections.data[$routeParams.questionId - 1] = index;
         $scope.selectedIndex = index;
 
-        if($rootScope.activeIndex < questionService.data.length){
+        if ($rootScope.activeIndex < questionService.data.length) {
             $rootScope.slideMode = 'slide-left';
-            $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
+            $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
         }
     };
-    $scope.swipeLeft = function(e){
-        if($rootScope.activeIndex == questionService.data.length){
+    $scope.swipeLeft = function (e) {
+        if ($rootScope.activeIndex == questionService.data.length) {
             return;
         }
         $rootScope.slideMode = 'slide-left';
-        $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
+        $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
     };
-    $scope.swipeRight = function(e){
-        if($rootScope.activeIndex == 1){
+    $scope.swipeRight = function (e) {
+        if ($rootScope.activeIndex == 1) {
             return;
         }
         $rootScope.slideMode = 'slide-right';
-        $location.path('question/'+(parseInt($rootScope.activeIndex)-1));
+        $location.path('question/' + (parseInt($rootScope.activeIndex) - 1));
     };
-    $scope.submit = function(){
+});
+
+app.controller('submitController', function ($scope, questionService, userSelections, $location) {
+    JSNativeBridge.send('js_msg_confirm_alert', {
+        'is_active_confirm_alert': true,
+        'alert_content_text': 'ÍË³ö²âÊÔÂð£¿',
+        'alert_ok_btn_text': 'ÍË³ö',
+        'alert_cancel_btn_text': '¼ÌÐø×÷´ð'
+    });
+    var isFinished = true, i = 0;
+    $scope.questions = questionService;
+    $scope.userSelections = userSelections.data;
+    if ($scope.questions.data.length != $scope.userSelections.length) {
+        isFinished = false;
+    } else {
+        for (i = 0; i < $scope.userSelections.length; i++) {
+            if (!$scope.userSelections[i]) {
+                isFinished = false;
+            }
+        }
+    }
+    $scope.isFinished = isFinished;
+    $scope.submit = function () {
         $location.path('result').replace();
     };
 });
 
-app.controller('resultController', function($scope, $rootScope ,questionService, userSelections, $location){
-    var answerArray = ['A',"B","C","D","E","F","G"];
-    var answerCount = [],i = 0,rightAnswerCount = 0;
+app.controller('resultController', function ($scope, $rootScope, questionService, userSelections, $location) {
+    JSNativeBridge.send('js_msg_confirm_alert', {
+        'is_active_confirm_alert': false,
+        'alert_content_text': '',
+        'alert_ok_btn_text': '',
+        'alert_cancel_btn_text': ''
+    });
+    var answerArray = ['A', "B", "C", "D", "E", "F", "G"];
+    var answerCount = [], i = 0, rightAnswerCount = 0;
     $rootScope.isResultPage = true;
     $scope.questions = questionService.data;
     $scope.userSelections = userSelections.data;
     $scope.isQualified = true;
-    for( i = 0;i<$scope.questions.length;i++){
-        if(answerArray[$scope.userSelections[i]] == $scope.questions[i]["right_answer"]){
+    for (i = 0; i < $scope.questions.length; i++) {
+        if (answerArray[$scope.userSelections[i]] == $scope.questions[i]["right_answer"]) {
             answerCount[i] = true;
             rightAnswerCount++;
-        }else{
+        } else {
             answerCount[i] = false;
         }
     }
     $scope.testScores = parseInt(100 * rightAnswerCount / $scope.questions.length);
     $scope.answerCount = answerCount;
-    if($scope.testScores<60){
+    if ($scope.testScores < 80) {
         $scope.isQualified = false;
     }
-    $scope.retest = function(){
+    $scope.retest = function () {
         userSelections.data = [];
-        $location.path('question/1');
+        $location.path('home');
     };
-    console.log($scope.questions);
-    console.log($scope.userSelections);
-    console.log(answerCount);
 });
 
-app.controller('navbarController',function($scope, questionService, $location,$rootScope, userSelections){
+app.controller('navbarController', function ($scope, questionService, $location, $rootScope, userSelections) {
     $scope.hover = '';
     $scope.questions = questionService;
     $scope.userSelections = userSelections.data;
     $rootScope.slideMode = 'slide-left';
-    $scope.toggleSerialCard = function(){
-        if($scope.hover == ''){
+    $scope.toggleSerialCard = function () {
+        if ($scope.hover == '') {
             $scope.hover = 'hover';
         }
-        else{
+        else {
             $scope.hover = '';
         }
     };
-    $scope.clearHover = function(){
+    $scope.clearHover = function () {
         $scope.hover = '';
     };
-    $scope.preQue = function(){
+    $scope.preQue = function () {
         $rootScope.slideMode = 'slide-right';
-        $location.path('question/'+($rootScope.activeIndex-1));
+        $location.path('question/' + ($rootScope.activeIndex - 1));
     };
-    $scope.nextQue = function(){
+    $scope.nextQue = function () {
         $rootScope.slideMode = 'slide-left';
-        $location.path('question/'+(parseInt($rootScope.activeIndex)+1));
+        $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+    };
+    $scope.submit = function () {
+        $rootScope.isResultPage = true;
+        $scope.hover = '';
+        $location.path('submit');
     };
 });
 
-app.run(function($http,questionService,$rootScope){
+app.run(function ($http, questionService, $rootScope) {
     $http({
-        method:'GET',
-        url:'./data/que_data.json'
-    }).then(function(resp){
+        method: 'GET',
+        url: './data/que_data.json'
+    }).then(function (resp) {
         questionService.data = resp.data;
     });
-    $rootScope.isResultPage = false;
+    $rootScope.isResultPage = true;
+    JSNativeBridge.init();
 });

@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-    <title></title>
+    <title>呼叫老师-上岗笔试</title>
     <link rel="stylesheet" href="sass/main.css"/>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="js/tools.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -18,16 +19,22 @@
         <span class="preQue" ng-click="preQue()" ng-if="activeIndex!='1'">上一题</span>
 
         <div class="navBtn" ng-click="toggleSerialCard()">
-            <span class="curQueNum">{{activeIndex}}</span><span>/</span><span class="queLen">{{questions.data.length}}</span><img src="./images/arrow.png" class="{{hover}}">
+            <span class="curQueNum">{{activeIndex}}</span><span>/</span><span
+                class="queLen">{{questions.data.length}}</span><img src="./images/arrow.png" class="{{hover}}">
         </div>
         <span class="nextQue" ng-click="nextQue()" ng-if="activeIndex != questions.data.length">下一题</span>
 
         <div style="clear:both;"></div>
     </div>
     <div class="serialCard {{hover}}">
+        <small class="leftTop">20题，共100分</small>
+        <small class="rightTop">合格线：80分</small>
+        <div style="clear:both;"></div>
         <div>
-            <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span ng-class="{active:($index+1) == activeIndex,finished:(userSelections[$index] != undefined && ($index+1) != activeIndex)}">{{$index + 1}}</span></a>
+            <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span
+                    ng-class="{active:($index+1) == activeIndex,finished:(userSelections[$index] != undefined && ($index+1) != activeIndex)}">{{$index + 1}}</span></a>
         </div>
+        <div class="submitBtnSC" ng-click="submit()">提交答案</div>
     </div>
     <div class="mask {{hover}}" ng-click="clearHover()"></div>
 </div>

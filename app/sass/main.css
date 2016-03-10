@@ -126,7 +126,7 @@ body {
   -moz-transform: translate3d(-50%, -100%, 0);
   -o-transform: translate3d(-50%, -100%, 0);
   transform: translate3d(-50%, -100%, 0);
-  padding: 20px 0;
+  padding: 10px 0 0 0;
   width: 100%;
   z-index: 10000;
   background-color: white; }
@@ -171,6 +171,24 @@ body {
     -moz-transform: translate3d(-50%, -10px, 0);
     -o-transform: translate3d(-50%, -10px, 0);
     transform: translate3d(-50%, -10px, 0); }
+  .serialCard .submitBtnSC {
+    width: 100%;
+    border-top: 1px solid #b9b9b9;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 10px;
+    color: #2ac99a;
+    font-size: 14px; }
+    .serialCard .submitBtnSC:active {
+      background-color: #b9b9b9; }
+  .serialCard small.leftTop {
+    color: #2ac99a;
+    margin-left: 5px; }
+  .serialCard small.rightTop {
+    float: right;
+    color: #2ac99a;
+    margin-right: 5px;
+    margin-top: 3px; }
 
 .mask {
   position: fixed;
@@ -537,6 +555,59 @@ img {
   text-align: center; }
   .resultPage span.okBtn:active {
     background: #2df3c1; }
+
+.homePage {
+  padding: 0 10px; }
+  .homePage p {
+    margin: 20px 0; }
+  .homePage span {
+    border: 1px solid #2ac99a;
+    background: #2ac99a;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 10px;
+    font-size: 18px;
+    width: 80%;
+    margin: 80px auto 0 auto;
+    display: block;
+    text-align: center; }
+    .homePage span:active {
+      background: #2df3c1; }
+
+.submitPage .circleContainer {
+  width: 90%;
+  margin: 0 auto; }
+  .submitPage .circleContainer p {
+    margin-bottom: 20px; }
+  .submitPage .circleContainer span {
+    color: white;
+    margin: 5px 2%;
+    background-color: #e1e1e1;
+    border-radius: 14px;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center; }
+  .submitPage .circleContainer span.r_hover {
+    box-shadow: 0 0 0 4px #2ac99a; }
+  .submitPage .circleContainer span.w_hover {
+    box-shadow: 0 0 0 4px #f05836; }
+  .submitPage .circleContainer span.g_hover {
+    box-shadow: 0 0 0 4px #e1e1e1; }
+  .submitPage .circleContainer span.active {
+    color: #49afdc;
+    background-color: #ffffff;
+    border: 1px solid #49afdc; }
+  .submitPage .circleContainer span.finished {
+    color: #fff;
+    background-color: #65bee6; }
+.submitPage a {
+  text-decoration: none; }
+  .submitPage a p {
+    text-align: right;
+    margin: 10% 10%;
+    color: #2ac99a; }
 
 .slide-left {
   position: absolute;

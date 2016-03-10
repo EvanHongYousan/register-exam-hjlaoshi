@@ -96,7 +96,7 @@ body {
   -o-transform: translate3d(-50%, -100%, 0);
   transform: translate3d(-50%, -100%, 0);
 
-  padding: 20px 0;
+  padding: 10px 0 0 0;
   width: 100%;
   z-index: 10000;
   background-color: white;
@@ -161,6 +161,28 @@ body {
     -moz-transform: translate3d(-50%, -10px, 0);
     -o-transform: translate3d(-50%, -10px, 0);
     transform: translate3d(-50%, -10px, 0);
+  }
+  .submitBtnSC{
+    width:100%;
+    border-top:1px solid #b9b9b9;
+    text-align: center;
+    padding:15px 0;
+    margin-top:10px;
+    color:#2ac99a;
+    font-size:14px;
+    &:active{
+      background-color: #b9b9b9;
+    }
+  }
+  small.leftTop{
+    color:#2ac99a;
+    margin-left:5px;
+  }
+  small.rightTop{
+    float:right;
+    color:#2ac99a;
+    margin-right:5px;
+    margin-top:3px;
   }
 }
 
