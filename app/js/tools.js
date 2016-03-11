@@ -54,7 +54,13 @@ var JSNativeBridge = (function(){
             if(!window.uplusInterface) {
                 uplusInterface = {};
                 uplusInterface.postWebpageMessage = function(id, content) {
-                    window.location.href = oriURL + '#msg_id=' + id + '&msg_content=' + content;
+                    //window.location.href = oriURL + '#msg_id=' + id + '&msg_content=' + content;
+                    var iframe = document.createElement("iframe");
+                    iframe.src = oriURL + '#msg_id=' + id + '&msg_content=' + content;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                    iframe.parentNode.removeChild(iframe);
+                    iframe = null;
                 }
             }
             if(!devJudge.isHjlaoshi()){
