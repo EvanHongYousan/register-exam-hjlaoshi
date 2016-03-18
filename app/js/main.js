@@ -93,9 +93,9 @@ app.factory('resultCollection', function (questionService, userSelections) {
 app.controller('mainController', function ($scope, $rootScope, $location) {
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': true,
-        'alert_content_text': 'ÍË³ö²âÊÔÂğ£¿',
-        'alert_ok_btn_text': 'ÍË³ö',
-        'alert_cancel_btn_text': '¼ÌĞø×÷´ğ'
+        'alert_content_text': 'é€€å‡ºæµ‹è¯•å—ï¼Ÿ',
+        'alert_ok_btn_text': 'é€€å‡º',
+        'alert_cancel_btn_text': 'ç»§ç»­ä½œç­”'
     });
     $rootScope.isResultPage = true;
     $scope.beginTest = function () {
@@ -111,9 +111,9 @@ app.controller('contactController', function ($scope) {
 app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location) {
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': true,
-        'alert_content_text': 'ÍË³ö²âÊÔÂğ£¿',
-        'alert_ok_btn_text': 'ÍË³ö',
-        'alert_cancel_btn_text': '¼ÌĞø×÷´ğ'
+        'alert_content_text': 'é€€å‡ºæµ‹è¯•å—ï¼Ÿ',
+        'alert_ok_btn_text': 'é€€å‡º',
+        'alert_cancel_btn_text': 'ç»§ç»­ä½œç­”'
     });
     $rootScope.activeIndex = $routeParams.questionId;
     $rootScope.isResultPage = false;
@@ -149,9 +149,9 @@ app.controller('submitController', function ($scope, questionService, userSelect
 
     JSNativeBridge.send('js_msg_confirm_alert', {
         'is_active_confirm_alert': true,
-        'alert_content_text': 'ÍË³ö²âÊÔÂğ£¿',
-        'alert_ok_btn_text': 'ÍË³ö',
-        'alert_cancel_btn_text': '¼ÌĞø×÷´ğ'
+        'alert_content_text': 'é€€å‡ºæµ‹è¯•å—ï¼Ÿ',
+        'alert_ok_btn_text': 'é€€å‡º',
+        'alert_cancel_btn_text': 'ç»§ç»­ä½œç­”'
     });
     var isFinished = true, i = 0;
     $scope.questions = questionService;
@@ -202,7 +202,7 @@ app.controller('submitController', function ($scope, questionService, userSelect
 
         $http({
             method: 'JSONP',
-            url: domainName + '/app/spread/activity?buss_id=written&u=' + user_id + '&s='+resultCollection.getTestScores()+'&callback=JSON_CALLBACK'
+            url: domainName + '/app/spread/activity?buss_id=written&u=' + user_id + '&s=' + resultCollection.getTestScores() + '&callback=JSON_CALLBACK'
         }).then(function (data) {
             console.log(data.data);
             if (data.status == 200) {
@@ -228,6 +228,9 @@ app.controller('resultController', function ($scope, $rootScope, questionService
     $scope.retest = function () {
         resultCollection.reset();
         $location.path('home');
+    };
+    $scope.over = function () {
+        JSNativeBridge.send('js_msg_page_jump', {'target_page': 'main_page'});
     };
 });
 

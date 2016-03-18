@@ -331,9 +331,9 @@ img {
   word-break: break-all; }
 
 .answer li > div {
-  line-height: 60px;
+  line-height: 25px;
   width: 90%;
-  margin: 0 auto; }
+  margin: 20px auto; }
 
 .answer li .contentInner {
   cursor: pointer; }
