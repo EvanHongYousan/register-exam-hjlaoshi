@@ -3,17 +3,20 @@
  */
 
 var express = require('express');
+var logger = require('morgan');
 
 var app = express();
 
 var port = process.env.PORT || 3002;
 
-app.use(express.static(__dirname+'/app'));
+app.use(logger('dev'));
+app.use(express.static(__dirname + '/app'));
 
 app.all('/*', function (req, res) {
     res.sendFile('index.html', {
-        root: __dirname+'/app'
+        root: __dirname + '/app'
     });
 });
-app.listen(port);
-console.log('server on port ' + port);
+app.listen(port, function () {
+    console.log('app is listening at port ' + port);
+});
