@@ -319,7 +319,8 @@ img {
 }
 */
 .answer li {
-  border-top: solid 1px #dfdfdf; }
+  border-top: solid 1px #dfdfdf;
+  padding: 20px 0; }
 
 .answer li:last-of-type {
   border-bottom: solid 1px #dfdfdf; }
@@ -333,7 +334,7 @@ img {
 .answer li > div {
   line-height: 25px;
   width: 90%;
-  margin: 20px auto; }
+  margin: 0 auto; }
 
 .answer li .contentInner {
   cursor: pointer; }

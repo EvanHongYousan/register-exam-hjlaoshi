@@ -91,11 +91,11 @@ app.factory('resultCollection', function (questionService, userSelections) {
     }
 });
 app.controller('mainController', function ($scope, $rootScope, $location) {
-    JSNativeBridge.send('js_msg_confirm_alert', {
-        'is_active_confirm_alert': true,
-        'alert_content_text': '退出测试吗？',
-        'alert_ok_btn_text': '退出',
-        'alert_cancel_btn_text': '继续作答'
+    JSNativeBridge.send('js_msg_close_page_confirm_alert', {
+        'is_active_confirm_alert': false,
+        'alert_content_text': '',
+        'alert_ok_btn_text': '',
+        'alert_cancel_btn_text': ''
     });
     $rootScope.isResultPage = true;
     $scope.beginTest = function () {
@@ -109,9 +109,9 @@ app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
 app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location) {
-    JSNativeBridge.send('js_msg_confirm_alert', {
+    JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
-        'alert_content_text': '退出测试吗？',
+        'alert_content_text': '确定退出测试吗？',
         'alert_ok_btn_text': '退出',
         'alert_cancel_btn_text': '继续作答'
     });
@@ -147,9 +147,9 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
 
 app.controller('submitController', function ($scope, questionService, userSelections, $location, $http, resultCollection) {
 
-    JSNativeBridge.send('js_msg_confirm_alert', {
+    JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
-        'alert_content_text': '退出测试吗？',
+        'alert_content_text': '确定退出测试吗？',
         'alert_ok_btn_text': '退出',
         'alert_cancel_btn_text': '继续作答'
     });
@@ -160,7 +160,7 @@ app.controller('submitController', function ($scope, questionService, userSelect
         isFinished = false;
     } else {
         for (i = 0; i < $scope.userSelections.length; i++) {
-            if (!$scope.userSelections[i]) {
+            if ($scope.userSelections[i] == undefined) {
                 isFinished = false;
             }
         }
@@ -213,7 +213,7 @@ app.controller('submitController', function ($scope, questionService, userSelect
 });
 
 app.controller('resultController', function ($scope, $rootScope, questionService, userSelections, $location, resultCollection) {
-    JSNativeBridge.send('js_msg_confirm_alert', {
+    JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': false,
         'alert_content_text': '',
         'alert_ok_btn_text': '',
@@ -230,7 +230,7 @@ app.controller('resultController', function ($scope, $rootScope, questionService
         $location.path('home');
     };
     $scope.over = function () {
-        JSNativeBridge.send('js_msg_page_jump', {'target_page': 'main_page'});
+        JSNativeBridge.send('js_msg_close_page', '');
     };
 });
 
