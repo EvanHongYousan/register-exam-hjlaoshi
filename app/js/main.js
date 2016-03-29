@@ -60,6 +60,10 @@ app.factory('resultCollection', function (questionService, userSelections) {
 
     function reset() {
         userSelections.data = [];
+        answerCount = [];
+        rightAnswerCount = 0;
+        isQualified = null;
+        testScores = 0;
     }
 
     function getQualified() {
