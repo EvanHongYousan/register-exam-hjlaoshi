@@ -1,11 +1,22 @@
 <section class="resultPage">
-    <h1>{{testScores}}<small>分</small></h1>
+    <h1>{{testScores}}
+        <small>分</small>
+    </h1>
     <p class="p1" ng-if="isQualified">恭喜你，笔试合格！</p>
-    <p class="p1" ng-if="!isQualified">笔试不合格！</p>
+
+    <p class="p1" ng-if="!isQualified">呃...未通过，请再考一次</p>
+
     <p class="p2" ng-if="isQualified">快上线答疑吧</p>
+
+    <p class="p2" ng-if="!isQualified">答案在&lt;上岗须知&gt;里，请仔细阅读哦~</p>
+
     <div class="circleContainer">
-        <span ng-repeat="item in questions" ng-class="{selectright:answerCount[$index],selectwrong:!answerCount[$index]}">{{$index+1}}</span>
+        <span ng-repeat="item in questions"
+              ng-class="{selectright:answerCount[$index],selectwrong:!answerCount[$index]}">{{$index+1}}</span>
     </div>
     <span class="okBtn" ng-if="isQualified" ng-click="over()">好的</span>
-    <span class="okBtn" ng-if="!isQualified" ng-click="retest()">重做一次</span>
+    <span class="okBtn" ng-if="!isQualified" ng-click="retest()">再测一次</span>
+    <a ng-if="!isQualified" href="#/home">
+        <p>返回首页</p>
+    </a>
 </section>

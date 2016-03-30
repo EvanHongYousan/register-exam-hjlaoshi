@@ -112,7 +112,7 @@ app.controller('aboutController', function ($scope) {
 app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
-app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location) {
+app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location,$timeout) {
     JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
         'alert_content_text': '确定退出测试吗？',
@@ -130,7 +130,12 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
 
         if ($rootScope.activeIndex < questionService.data.length) {
             $rootScope.slideMode = 'slide-left';
-            $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+            $timeout(function(){
+                $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+            },10);
+        } else {
+            $rootScope.isResultPage = true;
+            $location.path('submit');
         }
     };
     $scope.swipeLeft = function (e) {
@@ -138,14 +143,18 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
             return;
         }
         $rootScope.slideMode = 'slide-left';
-        $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+        $timeout(function(){
+            $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+        },10);
     };
     $scope.swipeRight = function (e) {
         if ($rootScope.activeIndex == 1) {
             return;
         }
         $rootScope.slideMode = 'slide-right';
-        $location.path('question/' + (parseInt($rootScope.activeIndex) - 1));
+        $timeout(function(){
+            $location.path('question/' + (parseInt($rootScope.activeIndex) - 1));
+        },10);
     };
 });
 
@@ -197,9 +206,10 @@ app.controller('submitController', function ($scope, questionService, userSelect
 
         if (/test/.test(location.href)) {
             domainName = 'http://test.hjlaoshi.com';
-        }
-        if (/233/.test) {
+        }else if (/233/.test(location.href)) {
             domainName = 'http://192.168.0.231';
+        }else if(/guanli/.test(location.href)){
+            domainName = 'http://guanli.hjlaoshi.com';
         }
 
         console.log('domainName:' + domainName);
@@ -211,6 +221,8 @@ app.controller('submitController', function ($scope, questionService, userSelect
             console.log(data.data);
             if (data.status == 200) {
                 $location.path('result').replace();
+            } else {
+                alert('提交失败');
             }
         });
     };
@@ -238,7 +250,7 @@ app.controller('resultController', function ($scope, $rootScope, questionService
     };
 });
 
-app.controller('navbarController', function ($scope, questionService, $location, $rootScope, userSelections) {
+app.controller('navbarController', function ($scope, questionService, $location, $rootScope, userSelections,$timeout) {
     $scope.hover = '';
     $scope.questions = questionService;
     $scope.userSelections = userSelections.data;
@@ -256,11 +268,15 @@ app.controller('navbarController', function ($scope, questionService, $location,
     };
     $scope.preQue = function () {
         $rootScope.slideMode = 'slide-right';
-        $location.path('question/' + ($rootScope.activeIndex - 1));
+        $timeout(function(){
+            $location.path('question/' + ($rootScope.activeIndex - 1));
+        },10);
     };
     $scope.nextQue = function () {
         $rootScope.slideMode = 'slide-left';
-        $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+        $timeout(function(){
+            $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+        },10);
     };
     $scope.submit = function () {
         $rootScope.isResultPage = true;

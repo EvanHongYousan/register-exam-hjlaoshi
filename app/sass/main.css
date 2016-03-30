@@ -524,6 +524,12 @@ img {
   font-size: 15px;
   margin: 20px 0;
   text-align: center; }
+.resultPage a {
+  text-decoration: none; }
+  .resultPage a p {
+    text-align: right;
+    margin: 10% 10%;
+    color: #2ac99a; }
 .resultPage .circleContainer {
   width: 90%;
   margin: 20px auto 0 auto; }
