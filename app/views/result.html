@@ -16,7 +16,7 @@
     </div>
     <span class="okBtn" ng-if="isQualified" ng-click="over()">好的</span>
     <span class="okBtn" ng-if="!isQualified" ng-click="retest()">再测一次</span>
-    <a ng-if="!isQualified" href="#/home">
+    <a ng-if="!isQualified" href="" ng-click="over()">
         <p>返回首页</p>
     </a>
 </section>
