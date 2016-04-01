@@ -112,7 +112,7 @@ app.controller('aboutController', function ($scope) {
 app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
-app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location,$timeout) {
+app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location, $timeout) {
     JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
         'alert_content_text': '确定退出测试吗？',
@@ -130,9 +130,9 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
 
         if ($rootScope.activeIndex < questionService.data.length) {
             $rootScope.slideMode = 'slide-left';
-            $timeout(function(){
+            $timeout(function () {
                 $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
-            },10);
+            }, 1000);
         } else {
             $rootScope.isResultPage = true;
             $location.path('submit');
@@ -143,18 +143,18 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
             return;
         }
         $rootScope.slideMode = 'slide-left';
-        $timeout(function(){
+        $timeout(function () {
             $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
-        },10);
+        }, 10);
     };
     $scope.swipeRight = function (e) {
         if ($rootScope.activeIndex == 1) {
             return;
         }
         $rootScope.slideMode = 'slide-right';
-        $timeout(function(){
+        $timeout(function () {
             $location.path('question/' + (parseInt($rootScope.activeIndex) - 1));
-        },10);
+        }, 10);
     };
 });
 
@@ -204,22 +204,22 @@ app.controller('submitController', function ($scope, questionService, userSelect
             user_id = user_id.split('@')[0];
         }
 
-        if (/test/.test(location.href)) {
+        if (/test\./.test(location.href)) {
             domainName = 'http://test.hjlaoshi.com';
-        }else if (/233/.test(location.href)) {
+        } else if (/\.233|\.231/.test(location.href)) {
             domainName = 'http://192.168.0.231';
-        }else if(/guanli/.test(location.href)){
+        } else if (/guanli\./.test(location.href)) {
             domainName = 'http://guanli.hjlaoshi.com';
         }
 
         console.log('domainName:' + domainName);
-
         $http({
             method: 'JSONP',
             url: domainName + '/app/spread/activity?buss_id=written&u=' + user_id + '&s=' + resultCollection.getTestScores() + '&callback=JSON_CALLBACK'
         }).then(function (data) {
             console.log(data.data);
             if (data.status == 200) {
+                JSNativeBridge.send('js_msg_pretest_result',{'isQualified':resultCollection.getTestScores()>79});
                 $location.path('result').replace();
             } else {
                 alert('提交失败');
@@ -250,7 +250,7 @@ app.controller('resultController', function ($scope, $rootScope, questionService
     };
 });
 
-app.controller('navbarController', function ($scope, questionService, $location, $rootScope, userSelections,$timeout) {
+app.controller('navbarController', function ($scope, questionService, $location, $rootScope, userSelections, $timeout) {
     $scope.hover = '';
     $scope.questions = questionService;
     $scope.userSelections = userSelections.data;
@@ -268,15 +268,15 @@ app.controller('navbarController', function ($scope, questionService, $location,
     };
     $scope.preQue = function () {
         $rootScope.slideMode = 'slide-right';
-        $timeout(function(){
+        $timeout(function () {
             $location.path('question/' + ($rootScope.activeIndex - 1));
-        },10);
+        }, 10);
     };
     $scope.nextQue = function () {
         $rootScope.slideMode = 'slide-left';
-        $timeout(function(){
+        $timeout(function () {
             $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
-        },10);
+        }, 10);
     };
     $scope.submit = function () {
         $rootScope.isResultPage = true;
