@@ -113,6 +113,7 @@ app.controller('contactController', function ($scope) {
     $scope.pageClass = 'page-contact';
 });
 app.controller('questionController', function ($scope, $http, $routeParams, $rootScope, questionService, userSelections, $location, $timeout) {
+    window.scrollTo(0, 0);
     JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
         'alert_content_text': '确定退出测试吗？',
@@ -125,17 +126,20 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
     $scope.questions = questionService;
     $scope.selectedIndex = userSelections.data[$routeParams.questionId - 1];
     $scope.toggle = function (index) {
+        var targetIndex = $rootScope.activeIndex;
         userSelections.data[$routeParams.questionId - 1] = index;
         $scope.selectedIndex = index;
 
         if ($rootScope.activeIndex < questionService.data.length) {
             $rootScope.slideMode = 'slide-left';
             $timeout(function () {
-                $location.path('question/' + (parseInt($rootScope.activeIndex) + 1));
+                $location.path('question/' + (parseInt(targetIndex) + 1));
             }, 1000);
         } else {
             $rootScope.isResultPage = true;
-            $location.path('submit');
+            $timeout(function () {
+                $location.path('submit');
+            }, 1000);
         }
     };
     $scope.swipeLeft = function (e) {
@@ -159,7 +163,7 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
 });
 
 app.controller('submitController', function ($scope, questionService, userSelections, $location, $http, resultCollection) {
-
+    window.scrollTo(0, 0);
     JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
         'alert_content_text': '确定退出测试吗？',
@@ -219,7 +223,6 @@ app.controller('submitController', function ($scope, questionService, userSelect
         }).then(function (data) {
             console.log(data.data);
             if (data.status == 200) {
-                JSNativeBridge.send('js_msg_pretest_result', {'isQualified': resultCollection.getTestScores() > 79});
                 $location.path('result').replace();
             } else {
                 alert('提交失败');
@@ -229,6 +232,7 @@ app.controller('submitController', function ($scope, questionService, userSelect
 });
 
 app.controller('resultController', function ($scope, $rootScope, questionService, userSelections, $location, resultCollection) {
+    window.scrollTo(0, 0);
     JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': false,
         'alert_content_text': '',
@@ -248,6 +252,7 @@ app.controller('resultController', function ($scope, $rootScope, questionService
     $scope.over = function () {
         JSNativeBridge.send('js_msg_close_page', '');
     };
+    JSNativeBridge.send('js_msg_pretest_result', {'isQualified': resultCollection.getTestScores() > 79});
 });
 
 app.controller('navbarController', function ($scope, questionService, $location, $rootScope, userSelections, $timeout) {
@@ -298,7 +303,7 @@ app.run(function ($http, questionService, $rootScope) {
 
 function loopAjax() {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", './data/que_data.json?t+'+new Date().getTime(), true);
+    xmlHttp.open("GET", './data/que_data.json?t+' + new Date().getTime(), true);
     xmlHttp.onreadystatechange = ShowResult;
     xmlHttp.send(null);
     function ShowResult() {
