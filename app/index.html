@@ -12,8 +12,40 @@
     <script src="bower_components/angular-touch/angular-touch.min.js"></script>
     <script src="js/tools.js"></script>
     <script src="js/main.js"></script>
+    <style>
+        .alert {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: inline-block;
+            z-index: 999;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+
+            -webkit-transform: translate(-1000px, -50%);
+            -moz-transform: translate(-1000px, -50%);
+            -o-transform: translate(-1000px, -50%);
+            transform: translate(-1000px, -50%);
+
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        .alert.hover{
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
+<span class="alert">网络断开</span>
+
 <div ng-controller="navbarController" ng-if="isResultPage!=true">
     <div class="navbar">
         <span class="preQue" ng-click="preQue()" ng-if="activeIndex!='1'">上一题</span>

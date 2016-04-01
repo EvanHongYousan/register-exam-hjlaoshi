@@ -219,7 +219,7 @@ app.controller('submitController', function ($scope, questionService, userSelect
         }).then(function (data) {
             console.log(data.data);
             if (data.status == 200) {
-                JSNativeBridge.send('js_msg_pretest_result',{'isQualified':resultCollection.getTestScores()>79});
+                JSNativeBridge.send('js_msg_pretest_result', {'isQualified': resultCollection.getTestScores() > 79});
                 $location.path('result').replace();
             } else {
                 alert('提交失败');
@@ -295,3 +295,22 @@ app.run(function ($http, questionService, $rootScope) {
     $rootScope.isResultPage = true;
     JSNativeBridge.init();
 });
+
+function loopAjax() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", './data/que_data.json?t+'+new Date().getTime(), true);
+    xmlHttp.onreadystatechange = ShowResult;
+    xmlHttp.send(null);
+    function ShowResult() {
+        if (xmlHttp.readyState == 4) {
+            if (xmlHttp.status != 200) {
+                document.getElementsByClassName('alert')[0].className = 'alert hover';
+            } else {
+                document.getElementsByClassName('alert')[0].className = 'alert';
+            }
+        }
+    }
+
+    setTimeout(loopAjax, 1000);
+}
+loopAjax();
