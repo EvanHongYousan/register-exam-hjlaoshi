@@ -33,6 +33,7 @@
             -moz-transition: all 0.5s;
             -o-transition: all 0.5s;
             transition: all 0.5s;
+            text-align: center;
         }
 
         .alert.hover{
@@ -44,7 +45,10 @@
     </style>
 </head>
 <body>
-<span class="alert">网络断开</span>
+<span class="alert">
+    <p>网络断开</p>
+    <p>请稍后重试</p>
+</span>
 
 <div ng-controller="navbarController" ng-if="isResultPage!=true">
     <div class="navbar">
@@ -60,7 +64,7 @@
     </div>
     <div class="serialCard {{hover}}">
         <small class="leftTop">17题，共100分</small>
-        <small class="rightTop">合格线：80分</small>
+        <small class="rightTop">(合格线：80分)</small>
         <div style="clear:both;"></div>
         <div>
             <a href="#/question/{{$index+1}}" ng-repeat="item in questions.data" ng-click="clearHover()"><span

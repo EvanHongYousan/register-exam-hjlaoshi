@@ -301,6 +301,7 @@ app.run(function ($http, questionService, $rootScope) {
     JSNativeBridge.init();
 });
 
+var netConected = true;
 function loopAjax() {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", './data/que_data.json?t+' + new Date().getTime(), true);
@@ -310,8 +311,10 @@ function loopAjax() {
         if (xmlHttp.readyState == 4) {
             if (xmlHttp.status != 200) {
                 document.getElementsByClassName('alert')[0].className = 'alert hover';
+                netConected = false;
             } else {
-                document.getElementsByClassName('alert')[0].className = 'alert';
+                //document.getElementsByClassName('alert')[0].className = 'alert';
+                netConected = true;
             }
         }
     }

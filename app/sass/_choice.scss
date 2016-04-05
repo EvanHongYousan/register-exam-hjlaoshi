@@ -115,7 +115,7 @@ img {
 */
 .answer li {
   border-top: solid 1px #dfdfdf;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .answer li:last-of-type {
@@ -131,7 +131,7 @@ img {
 }
 
 .answer li > div {
-  line-height: 25px;
+  //line-height: 25px;
   width: 90%;
   margin: 0 auto;
 }
@@ -141,26 +141,26 @@ img {
 }
 
 .answer li .contentInner > span > a {
-  width: 32px;
-  height: 32px;
-  margin-right: 12px;
-  line-height: 32px;
+  width: 22px;
+  height: 22px;
+  margin-right: 0px;
+  line-height: 22px;
   text-align: center;
   vertical-align: middle;
   background: url(../images/gray.png) no-repeat;
-  background-size: 32px 32px;
+  background-size: 22px 22px;
 }
 
 .answer li .contentInner > span > a.selectWrong {
   background: url(../images/red.png) no-repeat;
   color: #fff;
-  background-size: 32px 32px;
+  background-size: 22px 22px;
 }
 
 .answer li .contentInner > span > a.selectRight {
   background: url(../images/green.png) no-repeat;
   color: #fff;
-  background-size: 32px 32px;
+  background-size: 22px 22px;
 }
 
 .answer li:active {
@@ -169,7 +169,7 @@ img {
 
 .answer li .contentInner > span > a.active {
   background: url(../images/blue.png) no-repeat;
-  background-size: 32px 32px;
+  background-size: 22px 22px;
   vertical-align: middle;
   color: #fff;
 }
@@ -328,7 +328,7 @@ img {
   border-radius: 5px;
   padding: 10px 10px;
   font-size: 18px;
-  width: 80%;
+  width: 85%;
   margin: 50px auto 0 auto;
   display: block;
   text-align: center;
@@ -352,14 +352,15 @@ img {
   }
   .p1 {
     margin-top: 50px;
-    color: #00e535;
-    font-size: 25px;
+    //color: #00e535;
+    font-size: 20px;
     text-align: center;
   }
   .p2 {
     font-size: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
     text-align: center;
+    color: #838383;
   }
 
   a {
@@ -405,7 +406,7 @@ img {
     border-radius: 5px;
     padding: 10px 10px;
     font-size: 18px;
-    width: 80%;
+    width: 90%;
     margin: 50px auto 0 auto;
     display: block;
     text-align: center;
@@ -419,6 +420,8 @@ img {
 .homePage {
 
   padding: 0 10px;
+  position: relative;
+  top: -50px;
 
   p {
     margin: 20px 0;
@@ -431,7 +434,7 @@ img {
     border-radius: 5px;
     padding: 10px 10px;
     font-size: 18px;
-    width: 80%;
+    width: 90%;
     margin: 80px auto 0 auto;
     display: block;
     text-align: center;
@@ -443,11 +446,15 @@ img {
 }
 
 .submitPage {
+  position: relative;
+  top: -30px;
+
   .circleContainer {
     width: 90%;
     margin: 0 auto;
     p {
       margin-bottom: 20px;
+      text-align: center;
     }
     span {
       color: white;
@@ -488,7 +495,7 @@ img {
     text-decoration: none;
     p {
       text-align: right;
-      margin: 10% 10%;
+      margin: 30px 7%;
       color: #2ac99a;
     }
   }
