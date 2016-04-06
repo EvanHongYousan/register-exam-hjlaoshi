@@ -1,6 +1,8 @@
 /**
  * Created by yantianyu on 2016/3/1.
  */
+var userSelectionsData = null;
+var netConected = true;
 
 var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngTouch']);
 app.config(function ($routeProvider) {
@@ -120,6 +122,10 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
         'alert_ok_btn_text': '退出',
         'alert_cancel_btn_text': '继续作答'
     });
+    if(JSON.parse(localStorage.getItem('userSelectionsData'))){
+        userSelections.data = JSON.parse(localStorage.getItem('userSelectionsData'));
+        localStorage.removeItem('userSelectionsData');
+    }
     $rootScope.activeIndex = $routeParams.questionId;
     $rootScope.isResultPage = false;
     $scope.question = questionService.data[$routeParams.questionId - 1];
@@ -129,6 +135,8 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
         var targetIndex = $rootScope.activeIndex;
         userSelections.data[$routeParams.questionId - 1] = index;
         $scope.selectedIndex = index;
+
+        userSelectionsData = userSelections.data;
 
         if ($rootScope.activeIndex < questionService.data.length) {
             $rootScope.slideMode = 'slide-left';
@@ -301,7 +309,6 @@ app.run(function ($http, questionService, $rootScope) {
     JSNativeBridge.init();
 });
 
-var netConected = true;
 function loopAjax() {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", './data/que_data.json?t+' + new Date().getTime(), true);
@@ -312,8 +319,8 @@ function loopAjax() {
             if (xmlHttp.status != 200) {
                 document.getElementsByClassName('alert')[0].className = 'alert hover';
                 netConected = false;
+                localStorage.setItem('userSelectionsData',JSON.stringify(userSelectionsData));
             } else {
-                //document.getElementsByClassName('alert')[0].className = 'alert';
                 netConected = true;
             }
         }
