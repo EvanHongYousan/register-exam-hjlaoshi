@@ -161,7 +161,7 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
     };
 });
 
-app.controller('submitController', function ($scope, questionService, userSelections, $location, $http, resultCollection) {
+app.controller('submitController', function ($scope, $rootScope, $timeout,questionService, userSelections, $location, $http, resultCollection) {
     window.scrollTo(0, 0);
     JSNativeBridge.send('js_msg_close_page_confirm_alert', {
         'is_active_confirm_alert': true,
@@ -224,8 +224,16 @@ app.controller('submitController', function ($scope, questionService, userSelect
             if (data.status == 200) {
                 $location.path('result').replace();
             } else {
-                alert('提交失败');
+                $rootScope.alertMode = 'hover';
+                $timeout(function(){
+                    $rootScope.alertMode = '';
+                },2000);
             }
+        },function(error){
+            $rootScope.alertMode = 'hover';
+            $timeout(function(){
+                $rootScope.alertMode = '';
+            },2000);
         });
     };
 });
