@@ -7,7 +7,7 @@ var logger = require('morgan');
 
 var app = express();
 
-var port = process.env.PORT || 3002;
+var port = process.env.PORT || 3000;
 
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/app'));

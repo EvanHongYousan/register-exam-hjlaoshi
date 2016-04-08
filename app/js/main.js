@@ -1,34 +1,31 @@
 /**
  * Created by yantianyu on 2016/3/1.
  */
-var userSelectionsData = null;
-var netConected = true;
-
 var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngTouch']);
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/home', {
-            templateUrl: './views/page-home.html',
+            template: "<!-- page-home.html -->\r\n<section class=\"homePage\">\r\n    <p>欢迎参加上岗笔试。</p>\r\n\r\n    <p>上岗笔试将考查您对《上岗须知》的了解程度，笔试合格后，可立即开始接单辅导。</p>\r\n\r\n    <p>如果还未阅读《上岗须知》，请先退出笔试，仔细阅读后再开始答题。</p>\r\n\r\n    <p>本测试共20题，每题5分，80分视为合格，答题不限时。</p>\r\n\r\n    <span ng-click=\"beginTest()\">开始答题</span>\r\n</section>",
             controller: 'mainController'
         })
         .when('/about', {
-            templateUrl: './views/page-about.html',
+            template: "<!-- page-about.html -->\r\n<h1>Animating Pages Is Fun</h1>\r\n<h2>About</h2>\r\n\r\n<a href=\"#home\" class=\"btn btn-primary btn-lg\">Home</a>\r\n<a href=\"#contact\" class=\"btn btn-danger btn-lg\">Contact</a>",
             controller: 'aboutController'
         })
         .when('/contact', {
-            templateUrl: './views/page-contact.html',
+            template: "<!-- page-about.html -->\r\n<h1>Animating Pages Is Fun</h1>\r\n<h2>About</h2>\r\n\r\n<a href=\"#home\" class=\"btn btn-primary btn-lg\">Home</a>\r\n<a href=\"#contact\" class=\"btn btn-danger btn-lg\">Contact</a>",
             controller: 'contactController'
         })
         .when('/question/:questionId', {
-            templateUrl: './views/question.html',
+            template: "<section id=\"page\">\r\n    <section id=\"content\">\r\n        <div class=\"question\">\r\n            <div>\r\n                <p ng-repeat=\"text in question.question_text\">{{text}}</p>\r\n            </div>\r\n        </div>\r\n        <!---\r\n        <section class=\"line\"></section>\r\n        --->\r\n        <div class=\"answer\">\r\n            <ul>\r\n                <li class=\"right\" ng-repeat=\"(key,option) in question.options\" ng-click=\"toggle($index)\">\r\n                    <div class=\"contentInner\">\r\n                        <span><a ng-class=\"{active:$index===selectedIndex}\">{{key}}</a> {{option}}</span>\r\n                    </div>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </section>\r\n</section>",
             controller: 'questionController'
         })
         .when('/result', {
-            templateUrl: './views/result.html',
+            template: "<section class=\"resultPage\">\r\n    <h1>{{testScores}}\r\n        <small>分</small>\r\n    </h1>\r\n    <p class=\"p1\" ng-if=\"isQualified\">恭喜你，笔试合格！</p>\r\n\r\n    <p class=\"p1\" ng-if=\"!isQualified\">呃...未通过，请再考一次</p>\r\n\r\n    <p class=\"p2\" ng-if=\"isQualified\">快上线答疑吧</p>\r\n\r\n    <p class=\"p2\" ng-if=\"!isQualified\">答案在&lt;上岗须知&gt;里，请仔细阅读哦~</p>\r\n\r\n    <div class=\"circleContainer\">\r\n        <span ng-repeat=\"item in questions\"\r\n              ng-class=\"{selectright:answerCount[$index],selectwrong:!answerCount[$index]}\">{{$index+1}}</span>\r\n    </div>\r\n    <span class=\"okBtn\" ng-if=\"isQualified\" ng-click=\"over()\">好的</span>\r\n    <span class=\"okBtn\" ng-if=\"!isQualified\" ng-click=\"retest()\">再测一次</span>\r\n    <a ng-if=\"!isQualified\" href=\"\" ng-click=\"over()\">\r\n        <p>返回首页</p>\r\n    </a>\r\n</section>",
             controller: 'resultController'
         })
         .when('/submit', {
-            templateUrl: './views/submitPage.html',
+            template: "<section class=\"submitPage\">\r\n    <div class=\"circleContainer\">\r\n        <p ng-if=\"isFinished\">回答完成，交卷吧:)</p>\r\n\r\n        <p ng-if=\"!isFinished\">题目没有答完，确定交卷吗？</p>\r\n        <a href=\"#/question/{{$index+1}}\" ng-repeat=\"item in questions.data\" ng-click=\"clearHover()\"><span\r\n                ng-class=\"{finished:userSelections[$index] != undefined}\">{{$index + 1}}</span></a>\r\n    </div>\r\n\r\n    <span class=\"submitBtn\" ng-click=\"submit()\">交卷</span>\r\n    <a href=\"#/question/1\"><p>继续答题</p></a>\r\n</section>",
             controller: 'submitController'
         })
 
@@ -122,10 +119,6 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
         'alert_ok_btn_text': '退出',
         'alert_cancel_btn_text': '继续作答'
     });
-    if(JSON.parse(localStorage.getItem('userSelectionsData'))){
-        userSelections.data = JSON.parse(localStorage.getItem('userSelectionsData'));
-        localStorage.removeItem('userSelectionsData');
-    }
     $rootScope.activeIndex = $routeParams.questionId;
     $rootScope.isResultPage = false;
     $scope.question = questionService.data[$routeParams.questionId - 1];
@@ -135,8 +128,6 @@ app.controller('questionController', function ($scope, $http, $routeParams, $roo
         var targetIndex = $rootScope.activeIndex;
         userSelections.data[$routeParams.questionId - 1] = index;
         $scope.selectedIndex = index;
-
-        userSelectionsData = userSelections.data;
 
         if ($rootScope.activeIndex < questionService.data.length) {
             $rootScope.slideMode = 'slide-left';
@@ -308,24 +299,3 @@ app.run(function ($http, questionService, $rootScope) {
     $rootScope.isResultPage = true;
     JSNativeBridge.init();
 });
-
-function loopAjax() {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", './data/que_data.json?t+' + new Date().getTime(), true);
-    xmlHttp.onreadystatechange = ShowResult;
-    xmlHttp.send(null);
-    function ShowResult() {
-        if (xmlHttp.readyState == 4) {
-            if (xmlHttp.status != 200) {
-                document.getElementsByClassName('alert')[0].className = 'alert hover';
-                netConected = false;
-                localStorage.setItem('userSelectionsData',JSON.stringify(userSelectionsData));
-            } else {
-                netConected = true;
-            }
-        }
-    }
-
-    setTimeout(loopAjax, 1000);
-}
-loopAjax();
