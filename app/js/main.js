@@ -207,11 +207,11 @@ app.controller('submitController', function ($scope, $rootScope, $timeout, quest
             user_id = user_id.split('@')[0];
         }
 
-        if (/test\./.test(location.href)) {
+        if (/test\.|testftp\./.test(location.href)) {
             domainName = 'http://test.hjlaoshi.com';
         } else if (/\.233|\.231/.test(location.href)) {
             domainName = 'http://192.168.0.231';
-        } else if (/guanli\./.test(location.href)) {
+        } else if (/guanli\.|ftp\./.test(location.href)) {
             domainName = 'http://guanli.hjlaoshi.com';
         }
 
